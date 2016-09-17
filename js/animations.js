@@ -1,5 +1,8 @@
 
 $(document).ready( function() {
+
+  jQuery("time.timeago").timeago();
+
   $("#tweet-submit, #char-count").css("display", "none");
   $(".tweet-actions").css("display", "none");
   $(".stats").css("display", "none");
@@ -30,21 +33,25 @@ $(document).ready( function() {
 
   $("#tweet-submit").on("click", function() {
     var newTweet = $(".tweet").prop("outerHTML");
+    var tweetDate = Date.now();
+    var tweetId = "pd_" + tweetDate;
     newTweet = newTweet.replace(/damenleeturks.jpg/, "alagoon.jpg")
       .replace(/My BFF/, "Sammy Sam")
       .replace(/@mybff/g, "@sammysam")
-      .replace(/Today is an amazing day./, $(".tweet-compose").val());
+      .replace(/Today is an amazing day./, $(".tweet-compose").val())
+      .replace(/3 years ago/, $.timeago(new Date(tweetDate)))
+      .replace(/datetime="2013-09-19T13:04:00Z"/, "id=\"" + tweetId + "\" datetime=\"" + (new Date(tweetDate)).toISOString() + "\"");
     $("#stream").prepend(newTweet);
     setDisplayControls();
   });
 
   var setDisplayControls = function() {
     $(".tweet").mouseover( function() {
-      $(".tweet-actions", this).css("display", "inline");
+      $(".tweet-actions", this).css({"display": "inline"});
     });
 
     $(".tweet").mouseout( function() {
-      $(".tweet-actions", this).css("display", "none");
+      $(".tweet-actions", this).css({"display": "none"});
     })
     .on("click", function() {
       //$(".stats", this).css("display", "inline");
