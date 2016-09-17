@@ -4,7 +4,7 @@ $(document).ready( function() {
   jQuery("time.timeago").timeago();
 
   $("#tweet-submit, #char-count").css("display", "none");
-  $(".tweet-actions").css("display", "none");
+  $(".tweet-actions").css("visibility", "hidden");
   $(".stats").css("display", "none");
 
   $(".tweet-compose").on("click", function() {
@@ -47,14 +47,12 @@ $(document).ready( function() {
 
   var setDisplayControls = function() {
     $(".tweet").mouseover( function() {
-      $(".tweet-actions", this).css({"display": "inline"});
-    });
-
-    $(".tweet").mouseout( function() {
-      $(".tweet-actions", this).css({"display": "none"});
+      $(".tweet-actions", this).css("visibility", "visible");
+    })
+    .mouseout( function() {
+      $(".tweet-actions", this).css("visibility", "hidden");
     })
     .on("click", function() {
-      //$(".stats", this).css("display", "inline");
       $(".stats", this).slideDown("fast");
     });
 
